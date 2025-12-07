@@ -1,6 +1,10 @@
 import { Logo } from './Logo';
 
-export function NavBar({ children }) {
+interface NavBarProps {
+   children: React.ReactNode;
+}
+
+export function NavBar({ children }: NavBarProps) {
    return (
       <nav className="nav-bar">
          <Logo />

@@ -1,6 +1,15 @@
 import { Loader } from '../Loader';
 import { useSelectMovie } from '../../logic/useSelectMovie';
 import { MovieDetails } from './MovieDetails';
+import type { TempWatchedData, imdbID, NewWatchedMovie } from '../../types';
+
+interface SelectedMovieDetailsProps {
+   watched: TempWatchedData[];
+   selectedMovieId: imdbID;
+   setError: (error: string | null) => void;
+   handleCloseMovie: () => void;
+   onAddWatchedMovie: (movie: NewWatchedMovie) => void;
+}
 
 export function SelectedMovieDetails({
    watched,
@@ -8,7 +17,7 @@ export function SelectedMovieDetails({
    setError,
    handleCloseMovie,
    onAddWatchedMovie,
-}) {
+}: SelectedMovieDetailsProps) {
    const { movie, isloading } = useSelectMovie(selectedMovieId, setError);
    return (
       <>

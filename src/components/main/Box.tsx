@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-export function Box({ children }) {
+interface BoxProps {
+   children: React.ReactNode;
+}
+
+export function Box({ children }: BoxProps) {
    const [isOpen, setIsOpen] = useState(true);
    return (
       <div className="box">

@@ -1,10 +1,17 @@
-export function MovieList({ movies, handleSelectMovie }) {
+import type { TempMovieData, imdbID } from '../../types';
+
+interface MovieListProps {
+   movies: TempMovieData[];
+   handleSelectMovie: (id: imdbID) => void;
+}
+
+export function MovieList({ movies, handleSelectMovie }: MovieListProps) {
    return (
       <ul className="list">
-         {movies?.map((movie) => (
+         {movies?.map((movie, index) => (
             <Movie
                movie={movie}
-               key={movie.imdbID}
+               key={movie?.imdbID ?? `movie-${index}`}
                handleSelectMovie={handleSelectMovie}
             />
          ))}
@@ -12,9 +19,16 @@ export function MovieList({ movies, handleSelectMovie }) {
    );
 }
 
-export function Movie({ movie, handleSelectMovie }) {
+interface MovieProps {
+   movie: TempMovieData;
+   handleSelectMovie: (id: imdbID) => void;
+}
+
+export function Movie({ movie, handleSelectMovie }: MovieProps) {
+   if (!movie) return null;
+
    return (
-      <li onClick={() => handleSelectMovie(movie.imdbID)}>
+      <li onClick={() => handleSelectMovie(movie.imdbID ?? null)}>
          <img src={movie.Poster} alt={`${movie.Title} poster`} />
          <h3>{movie.Title}</h3>
          <div>
