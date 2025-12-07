@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import proptypes from 'prop-types';
 
 const containerStyle = {
    display: 'flex',
@@ -10,24 +9,26 @@ const containerStyle = {
 const starContainerStyle = {
    display: 'flex',
 };
-StarRating.propTypes = {
-   maxRating: proptypes.number,
-   color: proptypes.string,
-   size: proptypes.number,
-   className: proptypes.string,
-   message: proptypes.array,
-   defaultRating: proptypes.number,
-   onSetRating: proptypes.func,
-};
+
+interface StarRatingProps {
+   maxRating?: number;
+   color?: string;
+   size?: number;
+   className?: string;
+   message?: string[];
+   defaultRating?: number;
+   onSetRating?: (rating: number) => void;
+}
+
 export default function StarRating({
    maxRating = 5,
    color = '#fcc419',
    size = 48,
    className = '',
-   message = '',
+   message = [],
    defaultRating = 0,
    onSetRating,
-}) {
+}: StarRatingProps) {
    const [rating, setRating] = useState(defaultRating);
    const [tempRating, setTempRating] = useState(0);
    const textStyle = {
@@ -38,10 +39,10 @@ export default function StarRating({
       fontWeight: 'bold',
    };
 
-   const handleRating = (index) => {
+   const handleRating = (index: number): void => {
       const newRating = index + 1;
       setRating(() => newRating);
-      if (onSetRating) onSetRating(() => newRating);
+      if (onSetRating) onSetRating(newRating);
    };
 
    return (
@@ -68,6 +69,15 @@ export default function StarRating({
    );
 }
 
+interface StarProps {
+   onClick: () => void;
+   isfilled?: boolean;
+   onHoverIn: () => void;
+   onHoverOut: () => void;
+   size: number;
+   color: string;
+}
+
 export function Star({
    onClick,
    isfilled = true,
@@ -75,7 +85,7 @@ export function Star({
    onHoverOut,
    size,
    color,
-}) {
+}: StarProps) {
    const starStyle = {
       width: `${size}px`,
       height: `${size}px`,

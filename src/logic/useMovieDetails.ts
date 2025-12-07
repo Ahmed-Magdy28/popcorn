@@ -1,12 +1,44 @@
 import { useState, useEffect } from 'react';
 import { useKey } from './useKey';
-import type { movie, tempWatchedData, newWatchedMovie } from '../types';
+import type {
+   movie,
+   TempWatchedData,
+   NewWatchedMovie,
+   title,
+   poster,
+   released,
+   runtime,
+   plot,
+   genre,
+   actors,
+   director,
+   imdbRating,
+   userRating,
+} from '../types';
+
+interface UseMovieDetailsReturn {
+   title: title;
+   poster: poster;
+   released: released | undefined;
+   runtime: runtime;
+   plot: plot;
+   genre: genre;
+   actors: actors;
+   imdbRating: imdbRating;
+   ratedbefore: boolean;
+   oldUserRating: userRating;
+   setUserRating: React.Dispatch<React.SetStateAction<number>>;
+   handleonAdd: () => void;
+   userRating: number;
+   director: director;
+}
+
 export const useMovieDetails = (
    movie: movie,
-   watched: tempWatchedData[],
-   onAddWatchedMovie: (data: newWatchedMovie) => void,
+   watched: TempWatchedData[],
+   onAddWatchedMovie: (data: NewWatchedMovie) => void,
    handleCloseMovie: () => void,
-) => {
+): UseMovieDetailsReturn | undefined => {
    const [ratedbefore, setRatedBefore] = useState(false);
    const [userRating, setUserRating] = useState(0);
 

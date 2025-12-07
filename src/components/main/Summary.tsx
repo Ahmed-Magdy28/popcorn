@@ -1,13 +1,20 @@
 import { average } from '../../helper';
+import type { TempWatchedData } from '../../types';
 
-export function WatchedSummary({ watched }) {
+interface WatchedSummaryProps {
+   watched: TempWatchedData[];
+}
+
+export function WatchedSummary({ watched }: WatchedSummaryProps) {
    const avgImdbRating = average(
-      watched.map((movie) => movie.imdbRating),
+      watched.map((movie) => Number(movie?.imdbRating) || 0),
    ).toFixed(1);
    const avgUserRating = average(
-      watched.map((movie) => movie.userRating),
+      watched.map((movie) => Number(movie?.userRating) || 0),
    ).toFixed(1);
-   const avgRuntime = average(watched.map((movie) => movie.runtime)).toFixed(1);
+   const avgRuntime = average(
+      watched.map((movie) => Number(movie?.runtime) || 0),
+   ).toFixed(1);
    return (
       <div className="summary">
          <h2>Movies you watched</h2>

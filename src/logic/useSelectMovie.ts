@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 import { FullIdlink } from '../config';
 import { SetDataFromAPI } from '../helper';
+import type { imdbID, movie } from '../types';
 
-export const useSelectMovie = (selectedMovieId, setError) => {
-   const [movie, setMovie] = useState(null);
+export const useSelectMovie = (
+   selectedMovieId: imdbID,
+   setError: (error: string | null) => void,
+): {
+   movie: movie;
+   isloading: boolean;
+} => {
+   const [movie, setMovie] = useState<movie>(undefined);
    const [isloading, setIsLoading] = useState(false);
 
    useEffect(() => {
       if (!selectedMovieId) return;
       const controller = new AbortController();
-      const getmoviebyid = async (id) => {
+      const getmoviebyid = async (id: imdbID): Promise<void> => {
          if (!id) return;
          try {
             setIsLoading(true);
@@ -28,7 +35,7 @@ export const useSelectMovie = (selectedMovieId, setError) => {
 
       getmoviebyid(selectedMovieId);
       return () => controller.abort();
-   }, [selectedMovieId]);
+   }, [selectedMovieId, setError]);
 
    return { movie, isloading };
 };

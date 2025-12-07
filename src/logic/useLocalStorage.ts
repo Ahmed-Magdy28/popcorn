@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
-import type { initialValue } from '../types';
 
-export const useLocalStorage = (
+export const useLocalStorage = <T>(
    key: string,
-   initialValue: initialValue,
-): initialValue | undefined => {
-   const [value, setValue] = useState(() => {
+   initialValue: T,
+): [T, React.Dispatch<React.SetStateAction<T>>] => {
+   const [value, setValue] = useState<T>(() => {
       try {
          const storedValue = localStorage.getItem(key);
          return storedValue ? JSON.parse(storedValue) : initialValue;
       } catch (error) {
-         console.error('Error reading localStorage key “' + key + '”: ', error);
+         console.error('Error reading localStorage key "' + key + '": ', error);
          return initialValue;
       }
    });
@@ -19,7 +18,7 @@ export const useLocalStorage = (
       try {
          localStorage.setItem(key, JSON.stringify(value));
       } catch (error) {
-         console.error('Error setting localStorage key “' + key + '”: ', error);
+         console.error('Error setting localStorage key "' + key + '": ', error);
       }
    }, [key, value]);
 
