@@ -8,10 +8,10 @@ interface MovieListProps {
 export function MovieList({ movies, handleSelectMovie }: MovieListProps) {
    return (
       <ul className="list">
-         {movies?.map((movie) => (
+         {movies?.map((movie, index) => (
             <Movie
                movie={movie}
-               key={movie?.imdbID ?? ''}
+               key={movie?.imdbID ?? `movie-${index}`}
                handleSelectMovie={handleSelectMovie}
             />
          ))}
@@ -25,14 +25,16 @@ interface MovieProps {
 }
 
 export function Movie({ movie, handleSelectMovie }: MovieProps) {
+   if (!movie) return null;
+
    return (
-      <li onClick={() => handleSelectMovie(movie?.imdbID ?? null)}>
-         <img src={movie?.Poster} alt={`${movie?.Title} poster`} />
-         <h3>{movie?.Title}</h3>
+      <li onClick={() => handleSelectMovie(movie.imdbID ?? null)}>
+         <img src={movie.Poster} alt={`${movie.Title} poster`} />
+         <h3>{movie.Title}</h3>
          <div>
             <p>
                <span>🗓</span>
-               <span>{movie?.Year}</span>
+               <span>{movie.Year}</span>
             </p>
          </div>
       </li>

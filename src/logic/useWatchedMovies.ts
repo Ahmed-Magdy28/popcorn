@@ -29,12 +29,12 @@ export const useWatchedMovies = (
          // Check if the movie already exists in the watched list
          const isMovieExist = prevWatchedList.some(
             (oldWatchedMovie) =>
-               oldWatchedMovie?.imdbID === newWatchedMovie?.imdbID,
+               oldWatchedMovie?.imdbID === newWatchedMovie.imdbID,
          );
          if (isMovieExist) {
             // Update existing movie
             return prevWatchedList.map((oldWatchedMovie) =>
-               oldWatchedMovie?.imdbID === newWatchedMovie?.imdbID
+               oldWatchedMovie?.imdbID === newWatchedMovie.imdbID
                   ? { ...oldWatchedMovie, ...newWatchedMovie }
                   : oldWatchedMovie,
             );

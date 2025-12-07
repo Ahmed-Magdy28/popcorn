@@ -13,11 +13,11 @@ export function WatchedMoviesList({
 }: WatchedMoviesListProps) {
    return (
       <ul className="list">
-         {watched.map((movie) => (
+         {watched.map((movie, index) => (
             <WatchedMovie
                handleSelectMovie={handleSelectMovie}
                movie={movie}
-               key={movie?.imdbID ?? ''}
+               key={movie?.imdbID ?? `watched-${index}`}
                handleDeleteWatchedMovie={handleDeleteWatchedMovie}
             />
          ))}
@@ -36,33 +36,35 @@ export function WatchedMovie({
    handleSelectMovie,
    handleDeleteWatchedMovie,
 }: WatchedMovieProps) {
+   if (!movie) return null;
+
    return (
       <>
          <li
             onClick={() => {
-               handleSelectMovie(movie?.imdbID ?? null);
+               handleSelectMovie(movie.imdbID ?? null);
             }}
          >
-            <img src={movie?.Poster} alt={`${movie?.Title} poster`} />
-            <h3>{movie?.Title}</h3>
+            <img src={movie.Poster} alt={`${movie.Title} poster`} />
+            <h3>{movie.Title}</h3>
             <div>
                <p>
                   <span>⭐️</span>
-                  <span>{movie?.imdbRating}</span>
+                  <span>{movie.imdbRating}</span>
                </p>
                <p>
                   <span>🌟</span>
-                  <span>{movie?.userRating}</span>
+                  <span>{movie.userRating}</span>
                </p>
                <p>
                   <span>⏳</span>
-                  <span>{movie?.runtime} min</span>
+                  <span>{movie.runtime} min</span>
                </p>
                <button
                   className="btn-delete"
                   onClick={(e) => {
                      e.stopPropagation();
-                     handleDeleteWatchedMovie(movie?.imdbID ?? null);
+                     handleDeleteWatchedMovie(movie.imdbID ?? null);
                   }}
                >
                   X
