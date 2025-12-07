@@ -68,8 +68,8 @@ export const getDataFromAPI = async (link, signal) => {
    const timeoutPromise = new Promise((_, reject) =>
       setTimeout(
          () => reject(new Error('⏳ Request timed out')),
-         TimeoutSeconds * 1000
-      )
+         TimeoutSeconds * 1000,
+      ),
    );
    return Promise.race([fetchAPIData(link, signal), timeoutPromise]);
 };
@@ -79,7 +79,7 @@ export const SetDataFromAPI = async (
    signal,
    setterFunction,
    setError,
-   isActive = true
+   isActive = true,
 ) => {
    try {
       if (!link) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { FullIdlink } from '../config.js';
-import { SetDataFromAPI } from '../helper.js';
+import { FullIdlink } from '../config';
+import { SetDataFromAPI } from '../helper';
 
 export const useSelectMovie = (selectedMovieId, setError) => {
    const [movie, setMovie] = useState(null);
@@ -17,9 +17,10 @@ export const useSelectMovie = (selectedMovieId, setError) => {
                FullIdlink + id,
                controller.signal,
                setMovie,
-               setError
+               setError,
             );
          } catch (error) {
+            console.log(error);
          } finally {
             setIsLoading((_) => false);
          }

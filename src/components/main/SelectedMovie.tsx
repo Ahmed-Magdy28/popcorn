@@ -1,6 +1,6 @@
-import { Loader } from '../Loader.jsx';
-import { useSelectMovie } from '../../logic/useSelectMovie.js';
-import { MovieDetails } from './MovieDetails.jsx';
+import { Loader } from '../Loader';
+import { useSelectMovie } from '../../logic/useSelectMovie';
+import { MovieDetails } from './MovieDetails';
 
 export function SelectedMovieDetails({
    watched,

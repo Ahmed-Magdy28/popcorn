@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 
-export const useKey = (key, action) => {
+export const useKey = (key: string, action: () => void): void => {
    useEffect(() => {
-      const handlePress = (e) => {
+      const handlePress = (e: KeyboardEvent) => {
          if (e.key.toLowerCase() === key.toLowerCase()) {
             action();
          }

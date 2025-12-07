@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
+import type { initialValue } from '../types';
 
-export const useLocalStorage = (key, initialValue) => {
+export const useLocalStorage = (
+   key: string,
+   initialValue: initialValue,
+): initialValue | undefined => {
    const [value, setValue] = useState(() => {
       try {
          const storedValue = localStorage.getItem(key);

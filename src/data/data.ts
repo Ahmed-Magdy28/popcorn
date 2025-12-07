@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 export const tempMovieData = [
    {
       imdbID: 'tt1375666',

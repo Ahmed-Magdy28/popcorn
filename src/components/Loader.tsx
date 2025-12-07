@@ -5,7 +5,7 @@ export function Loader() {
       </>
    );
 }
-export function ErrorMessage({ message }) {
+export function ErrorMessage({ message }: { message: string }) {
    return (
       <>
          <p className="error">

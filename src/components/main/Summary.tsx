@@ -2,10 +2,10 @@ import { average } from '../../helper';
 
 export function WatchedSummary({ watched }) {
    const avgImdbRating = average(
-      watched.map((movie) => movie.imdbRating)
+      watched.map((movie) => movie.imdbRating),
    ).toFixed(1);
    const avgUserRating = average(
-      watched.map((movie) => movie.userRating)
+      watched.map((movie) => movie.userRating),
    ).toFixed(1);
    const avgRuntime = average(watched.map((movie) => movie.runtime)).toFixed(1);
    return (

@@ -1,16 +1,15 @@
-import { NavBar } from './components/header/NavBar.jsx';
-import { Main } from './components/main/main.jsx';
-import { NumResults } from './components/header/NumResults.jsx';
-import { Search } from './components/header/Search.jsx';
-import { MovieList } from './components/main/MovieList.jsx';
-import { WatchedMoviesList } from './components/main/WatchedMovieList.jsx';
-import { WatchedSummary } from './components/main/Summary.jsx';
-import { Box } from './components/main/Box.jsx';
-import { SelectedMovieDetails } from './components/main/SelectedMovie.jsx';
-import { Loader, ErrorMessage } from './components/Loader.jsx';
-import { useMovies } from './logic/useMovies.js';
-import { useWatchedMovies } from './logic/useWatchedMovies.js';
-import './App.css';
+import { NavBar } from './components/header/NavBar';
+import { Main } from './components/main/main';
+import { NumResults } from './components/header/NumResults';
+import { Search } from './components/header/Search';
+import { MovieList } from './components/main/MovieList';
+import { WatchedMoviesList } from './components/main/WatchedMovieList';
+import { WatchedSummary } from './components/main/Summary';
+import { Box } from './components/main/Box';
+import { SelectedMovieDetails } from './components/main/SelectedMovie';
+import { Loader, ErrorMessage } from './components/Loader';
+import { useMovies } from './logic/useMovies';
+import { useWatchedMovies } from './logic/useWatchedMovies';
 
 export default function App() {
    const {
@@ -20,7 +19,6 @@ export default function App() {
       setSelectedMovieId,
       setError,
       isMovieListLoading,
-      searchQuery,
       setSearchQuery,
    } = useMovies();
    const {

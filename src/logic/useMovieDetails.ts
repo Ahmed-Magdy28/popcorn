@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useKey } from './useKey';
+import type { movie, tempWatchedData, newWatchedMovie } from '../types';
 export const useMovieDetails = (
-   movie,
-   watched,
-   onAddWatchedMovie,
-   handleCloseMovie
+   movie: movie,
+   watched: tempWatchedData[],
+   onAddWatchedMovie: (data: newWatchedMovie) => void,
+   handleCloseMovie: () => void,
 ) => {
    const [ratedbefore, setRatedBefore] = useState(false);
    const [userRating, setUserRating] = useState(0);
@@ -22,25 +23,26 @@ export const useMovieDetails = (
       Genre: genre,
       imdbID: imdbID,
    } = movie || {};
-   if (!movie) return;
 
    const oldUserRating = watched.find(
-      (movie) => movie.imdbID === imdbID
+      (movie) => movie?.imdbID === imdbID,
    )?.userRating;
-
-   const checkRatedBefore = () => {
-      const alreadyRated = watched.some((movie) => movie.imdbID === imdbID);
-      setRatedBefore(alreadyRated);
-   };
 
    useEffect(() => {
       if (!movie) return;
+
+      const checkRatedBefore = () => {
+         const alreadyRated = watched.some((movie) => movie?.imdbID === imdbID);
+         setRatedBefore(alreadyRated);
+      };
+
       checkRatedBefore();
-   }, [userRating]);
+   }, [userRating, movie, imdbID, watched]);
 
    useKey('Escape', handleCloseMovie);
 
    useEffect(() => {
+      if (!movie) return;
       // Set the title when effect runs
       document.title = title ? `Movie | ${title}` : 'Popcorn App';
 
@@ -48,15 +50,16 @@ export const useMovieDetails = (
       return () => {
          document.title = 'Popcorn App';
       };
-   }, [title]);
+   }, [title, movie]);
 
+   if (!movie) return;
    const handleonAdd = () => {
       const newWatchedMovie = {
-         imdbID: imdbID,
+         imdbID: imdbID || '',
          Title: title,
          Year: year || 0,
          Poster: poster,
-         runtime: Number(runtime.split(' ').at(0)) || 0,
+         runtime: Number(String(runtime)?.split(' ').at(0)) || 0,
          imdbRating: Number(imdbRating) || 0,
          userRating: userRating,
       };
