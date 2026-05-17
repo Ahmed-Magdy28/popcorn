@@ -1,3 +1,5 @@
-export function Main({ children }) {
+import type { ReactNode } from 'react';
+
+export function Main({ children }: { children: ReactNode }) {
    return <main className="main">{children}</main>;
 }

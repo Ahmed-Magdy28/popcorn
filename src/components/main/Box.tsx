@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
-export function Box({ children }) {
+export function Box({ children }: { children: ReactNode }) {
    const [isOpen, setIsOpen] = useState(true);
    return (
       <div className="box">

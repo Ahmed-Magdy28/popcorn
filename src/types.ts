@@ -11,45 +11,42 @@ export type director = string | undefined;
 export type genre = string | undefined;
 export type userRating = number | undefined;
 
-export type movie =
-   | {
-        Title: title;
-        Year: year;
-        Poster: poster;
-        Runtime: runtime;
-        imdbRating?: imdbRating;
-        Plot: plot;
-        Released: released;
-        Actors: actors;
-        Director: director;
-        Genre: genre;
-        imdbID?: imdbID;
-     }
-   | undefined;
-export type tempMovieData =
-   | { imdbID: imdbID; Title: title; Year: year; Poster: poster }
-   | undefined;
-export type tempWatchedData =
-   | {
-        imdbID: imdbID;
-        Title: title;
-        Year: year;
-        Poster: poster;
-        runtime: runtime;
-        imdbRating: imdbRating;
-        userRating: userRating;
-     }
-   | undefined;
+export type movie = {
+   Title: title;
+   Year: year;
+   Poster: poster;
+   Runtime: runtime;
+   imdbRating?: imdbRating;
+   Plot: plot;
+   Released: released;
+   Actors: actors;
+   Director: director;
+   Genre: genre;
+   imdbID?: imdbID;
+};
+export type tempMovieData = {
+   imdbID: imdbID;
+   Title: title;
+   Year: year;
+   Poster: poster;
+};
+export type tempWatchedData = {
+   imdbID: imdbID;
+   Title: title;
+   Year: year;
+   Poster: poster;
+   runtime: runtime;
+   imdbRating: imdbRating;
+   userRating: userRating;
+};
 export type initialValue = unknown;
 export type query = string | null;
-export type newWatchedMovie =
-   | {
-        imdbID: imdbID;
-        Title: title;
-        Year: year;
-        Poster: poster;
-        runtime: runtime;
-        imdbRating: imdbRating;
-        userRating: userRating;
-     }
-   | undefined;
+export type newWatchedMovie = {
+   imdbID: imdbID;
+   Title: title;
+   Year: year;
+   Poster: poster;
+   runtime: runtime;
+   imdbRating: imdbRating;
+   userRating: userRating;
+};

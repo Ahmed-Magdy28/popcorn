@@ -1,8 +1,11 @@
 import { TimeoutSeconds } from './config.js';
-export const average = (arr) =>
+export const average = (arr: number[]) =>
    arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-export const timeOutSetter = (setterFunction, setterData) => {
+export const timeOutSetter = <T>(
+   setterFunction: (data: T) => void,
+   setterData: T,
+) => {
    const id = setTimeout(() => {
       setterFunction(setterData);
    }, TimeoutSeconds * 1000);
@@ -40,7 +43,7 @@ export const timeOutSetter = (setterFunction, setterData) => {
  *   console.error(err.message); // Handles API or network errors
  * }
  */
-const fetchAPIData = async (link, signal) => {
+const fetchAPIData = async (link: string, signal?: AbortSignal) => {
    // If no link provided, abort early
    if (!link) throw new Error('No link provided');
 
@@ -64,7 +67,7 @@ const fetchAPIData = async (link, signal) => {
    else throw new Error('movie not found!');
 };
 
-export const getDataFromAPI = async (link, signal) => {
+export const getDataFromAPI = async (link: string, signal?: AbortSignal) => {
    const timeoutPromise = new Promise((_, reject) =>
       setTimeout(
          () => reject(new Error('⏳ Request timed out')),
@@ -74,11 +77,11 @@ export const getDataFromAPI = async (link, signal) => {
    return Promise.race([fetchAPIData(link, signal), timeoutPromise]);
 };
 
-export const SetDataFromAPI = async (
-   link,
-   signal,
-   setterFunction,
-   setError,
+export const SetDataFromAPI = async <T>(
+   link: string,
+   signal: AbortSignal | undefined,
+   setterFunction: React.Dispatch<React.SetStateAction<T>>,
+   setError: React.Dispatch<React.SetStateAction<string | null>>,
    isActive = true,
 ) => {
    try {
@@ -102,11 +105,13 @@ export const SetDataFromAPI = async (
       }
       if (data.Response === 'True') return data;
    } catch (error) {
-      if (error.message === 'please be more specific') {
-         setterFunction([]);
-         setError(error.message);
+      const err = error as Error;
+      if (err.message === 'please be more specific') {
+         // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         setterFunction([] as any);
+         setError(err.message);
          return;
       }
-      if (error.name !== 'AbortError') setError(` ${error.message}`);
+      if (err.name !== 'AbortError') setError(` ${err.message}`);
    }
 };

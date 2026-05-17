@@ -1,11 +1,17 @@
 import StarRating from '../StarRating';
 import { useMovieDetails } from '../../logic/useMovieDetails';
+import type { movie, tempWatchedData, newWatchedMovie } from '../../types';
 
 export function MovieDetails({
    watched,
    movie,
    handleCloseMovie,
    onAddWatchedMovie,
+}: {
+   watched: tempWatchedData[];
+   movie: movie;
+   handleCloseMovie: () => void;
+   onAddWatchedMovie: (movie: newWatchedMovie) => void;
 }) {
    const {
       title,
@@ -47,7 +53,7 @@ export function MovieDetails({
             {ratedbefore && <p>You rated this movie with {oldUserRating} 🌟</p>}
             <StarRating
                size={24}
-               defaultRating={oldUserRating || imdbRating}
+               defaultRating={oldUserRating || Number(imdbRating) || 0}
                maxRating={10}
                onSetRating={setUserRating}
             />

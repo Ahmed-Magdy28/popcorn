@@ -1,7 +1,12 @@
-import type { imdbID, movie } from '../types';
+import type { imdbID, movie, tempWatchedData } from '../types';
 import { useLocalStorage } from './useLocalStorage';
-export const useWatchedMovies = (setSelectedMovieId) => {
-   const [watched, setWatched] = useLocalStorage('watched', []);
+
+type SetSelectedMovieId = React.Dispatch<React.SetStateAction<imdbID>>;
+
+export const useWatchedMovies = (setSelectedMovieId: SetSelectedMovieId) => {
+   const [watched, setWatched] = useLocalStorage<
+      NonNullable<tempWatchedData>[]
+   >('watched', []);
 
    const handleSelectMovie = (id: imdbID) => {
       setSelectedMovieId((selectedId: imdbID) =>
@@ -12,7 +17,9 @@ export const useWatchedMovies = (setSelectedMovieId) => {
       setSelectedMovieId((_: unknown) => null);
    };
 
-   const handleAddWatchedMovie = (newWatchedMovie) =>
+   const handleAddWatchedMovie = (
+      newWatchedMovie: NonNullable<tempWatchedData>,
+   ) =>
       setWatched((prevWatchedList) => {
          // Check if the movie already exists in the watched list
          const isMovieExist = prevWatchedList.some(
@@ -33,7 +40,7 @@ export const useWatchedMovies = (setSelectedMovieId) => {
 
    const handleDeleteWatchedMovie = (id: imdbID) => {
       setWatched((prevWatchedList) =>
-         prevWatchedList.filter((movie: movie) => movie.imdbID !== id),
+         prevWatchedList.filter((movie) => movie.imdbID !== id),
       );
    };
 

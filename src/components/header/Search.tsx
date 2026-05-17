@@ -1,6 +1,10 @@
 import { useSearch } from '../../logic/useSearch';
 
-export function Search({ setSearchQuery }) {
+export function Search({
+   setSearchQuery,
+}: {
+   setSearchQuery: (query: string) => void;
+}) {
    const { query, handleSubmit, setQuery, inputEl } = useSearch(setSearchQuery);
 
    return (

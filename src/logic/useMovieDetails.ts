@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useKey } from './useKey';
 import type { movie, tempWatchedData, newWatchedMovie } from '../types';
+
 export const useMovieDetails = (
    movie: movie,
    watched: tempWatchedData[],
@@ -21,18 +22,16 @@ export const useMovieDetails = (
       Actors: actors,
       Director: director,
       Genre: genre,
-      imdbID: imdbID,
+      imdbID,
    } = movie || {};
 
-   const oldUserRating = watched.find(
-      (movie) => movie?.imdbID === imdbID,
-   )?.userRating;
+   const oldUserRating = watched.find((m) => m?.imdbID === imdbID)?.userRating;
 
    useEffect(() => {
       if (!movie) return;
 
       const checkRatedBefore = () => {
-         const alreadyRated = watched.some((movie) => movie?.imdbID === imdbID);
+         const alreadyRated = watched.some((m) => m?.imdbID === imdbID);
          setRatedBefore(alreadyRated);
       };
 
@@ -43,28 +42,23 @@ export const useMovieDetails = (
 
    useEffect(() => {
       if (!movie) return;
-      // Set the title when effect runs
       document.title = title ? `Movie | ${title}` : 'Popcorn App';
-
-      // Cleanup: reset the title when component unmounts
       return () => {
          document.title = 'Popcorn App';
       };
    }, [title, movie]);
 
-   if (!movie) return;
    const handleonAdd = () => {
       const newWatchedMovie = {
-         imdbID: imdbID || '',
+         imdbID: imdbID || null,
          Title: title,
-         Year: year || 0,
+         Year: year,
          Poster: poster,
          runtime: Number(String(runtime)?.split(' ').at(0)) || 0,
          imdbRating: Number(imdbRating) || 0,
          userRating: userRating,
       };
       onAddWatchedMovie(newWatchedMovie);
-      handleCloseMovie();
    };
 
    return {

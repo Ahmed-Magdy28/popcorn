@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { FullSearchlink } from '../config';
 import { SetDataFromAPI } from '../helper';
 import { timeOutSetter } from '../helper';
-import type { query } from '../types';
+import type { query, movie, imdbID } from '../types';
 export const useMovies = () => {
-   const [movies, setMovies] = useState([]);
+   const [movies, setMovies] = useState<movie[]>([]);
    const [isMovieListLoading, setIsMovieListLoading] = useState(false);
-   const [error, setError] = useState(null);
-   const [selectedMovieId, setSelectedMovieId] = useState(null);
+   const [error, setError] = useState<string | null>(null);
+   const [selectedMovieId, setSelectedMovieId] = useState<imdbID>(null);
    const [searchQuery, setSearchQuery] = useState('');
 
    useEffect(() => {

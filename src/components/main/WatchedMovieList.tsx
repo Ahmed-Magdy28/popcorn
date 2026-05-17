@@ -1,7 +1,13 @@
+import type { tempWatchedData, imdbID } from '../../types';
+
 export function WatchedMoviesList({
    watched,
    handleDeleteWatchedMovie,
    handleSelectMovie,
+}: {
+   watched: NonNullable<tempWatchedData>[];
+   handleDeleteWatchedMovie: (id: imdbID) => void;
+   handleSelectMovie: (id: imdbID) => void;
 }) {
    return (
       <ul className="list">
@@ -21,6 +27,10 @@ export function WatchedMovie({
    movie,
    handleSelectMovie,
    handleDeleteWatchedMovie,
+}: {
+   movie: NonNullable<tempWatchedData>;
+   handleSelectMovie: (id: imdbID) => void;
+   handleDeleteWatchedMovie: (id: imdbID) => void;
 }) {
    return (
       <>

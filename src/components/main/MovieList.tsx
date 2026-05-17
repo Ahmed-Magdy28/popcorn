@@ -1,4 +1,12 @@
-export function MovieList({ movies, handleSelectMovie }) {
+import type { movie, imdbID } from '../../types';
+
+export function MovieList({
+   movies,
+   handleSelectMovie,
+}: {
+   movies: movie[];
+   handleSelectMovie: (id: imdbID) => void;
+}) {
    return (
       <ul className="list">
          {movies?.map((movie) => (
@@ -12,9 +20,15 @@ export function MovieList({ movies, handleSelectMovie }) {
    );
 }
 
-export function Movie({ movie, handleSelectMovie }) {
+export function Movie({
+   movie,
+   handleSelectMovie,
+}: {
+   movie: movie;
+   handleSelectMovie: (id: imdbID) => void;
+}) {
    return (
-      <li onClick={() => handleSelectMovie(movie.imdbID)}>
+      <li onClick={() => movie.imdbID && handleSelectMovie(movie.imdbID)}>
          <img src={movie.Poster} alt={`${movie.Title} poster`} />
          <h3>{movie.Title}</h3>
          <div>

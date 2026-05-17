@@ -1,15 +1,20 @@
+/* eslint-disable prettier/prettier */
 import { useState, useEffect } from 'react';
 import { FullIdlink } from '../config';
 import { SetDataFromAPI } from '../helper';
+import type { movie } from '../types';
 
-export const useSelectMovie = (selectedMovieId, setError) => {
-   const [movie, setMovie] = useState(null);
+export const useSelectMovie = (
+   selectedMovieId: string | null,
+   setError: React.Dispatch<React.SetStateAction<string | null>>
+) => {
+   const [movie, setMovie] = useState<movie | null>(null);
    const [isloading, setIsLoading] = useState(false);
 
    useEffect(() => {
       if (!selectedMovieId) return;
       const controller = new AbortController();
-      const getmoviebyid = async (id) => {
+      const getmoviebyid = async (id: string) => {
          if (!id) return;
          try {
             setIsLoading(true);
@@ -17,7 +22,7 @@ export const useSelectMovie = (selectedMovieId, setError) => {
                FullIdlink + id,
                controller.signal,
                setMovie,
-               setError,
+               setError
             );
          } catch (error) {
             console.log(error);
@@ -28,7 +33,7 @@ export const useSelectMovie = (selectedMovieId, setError) => {
 
       getmoviebyid(selectedMovieId);
       return () => controller.abort();
-   }, [selectedMovieId]);
+   }, [selectedMovieId, setError]);
 
    return { movie, isloading };
 };
